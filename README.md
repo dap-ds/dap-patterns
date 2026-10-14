@@ -31,11 +31,13 @@ reference such as `{spacing.400}` or `{Heading.Heading 4}`; there are no raw px 
 
 ## Adding or changing a pattern
 
-1. **From Figma (recommended).** Select the frame, open the DÁP Patterns plugin, *Export*, then *Propose on GitHub*.
-   The plugin copies the bundle and opens GitHub's "new file" page for `patterns/<id>.json`. Paste, commit: GitHub
-   forks the repo for you if you are not a member and opens a pull request.
-2. **From a checkout.** Save the exported bundle and run `npm run pattern:add -- bundle.json`, review the diff,
-   commit on a branch and open a pull request.
+1. **From a checkout.** Put the pattern bundle in `patterns/<id>.json` (or run `npm run pattern:add -- bundle.json` on
+   a bundle file), review the diff, commit on a branch and open a pull request.
+2. **On github.com.** Create `patterns/<id>.json` with *Add file, Create new file*; GitHub forks the repo for you if you
+   are not a member and opens the pull request.
+
+> The Figma plugin's **Export** (a selected frame to a bundle, with a *Propose on GitHub* button) is switched off for now
+> while its known issues are fixed. Until then bundles are written by hand or taken from an existing pattern.
 
 Rules enforced by CI (the pull request cannot merge otherwise):
 
