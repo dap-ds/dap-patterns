@@ -1,0 +1,23 @@
+{
+  "name": "dap-patterns",
+  "version": "0.0.0",
+  "private": true,
+  "description": "DÁP pattern registry: pattern trees built only from DS atoms and tokens. Source of the GitHub Pages catalogue read by the DÁP Figma plugin.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "node scripts/build.mjs --check",
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "check-bump": "node scripts/check-bump.mjs",
+    "pattern:add": "node scripts/add-pattern.mjs",
+    "keys:verify": "node scripts/figma-keys.mjs verify",
+    "keys:save": "node scripts/figma-keys.mjs save",
+    "sync:tokens": "node scripts/sync-from-dap-ds.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1"
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dap-ds.github.io/dap-patterns/schema/registry.schema.json",
+  "title": "DAP patterns registry",
+  "description": "Index of reusable DAP patterns. Single catalogue consumed by the Figma plugin (list/search/insert) and by code tooling. The registry is generated/validated in CI; the pattern trees under patterns/<id>/ are the source of truth.",
+  "type": "object",
+  "required": [
+    "schema",
+    "name",
+    "tokens",
+    "items"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema": {
+      "const": 1,
+      "description": "Registry format version."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "tokens": {
+      "type": "object",
+      "description": "Where the token sources live. Patterns reference tokens by path only; values are never stored in a pattern.",
+      "required": [
+        "source",
+        "figmaKeys"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "Path/URL of the W3C-style token.json (Tokens Studio / Figma export, sets = collection/mode)."
+        },
+        "figmaKeys": {
+          "type": "string",
+          "description": "Path/URL of figma-keys.json (variable, style and component publish keys)."
+        },
+        "dsVersion": {
+          "type": "string",
+          "description": "Version of the DS the patterns were validated against, e.g. dapDS 0.56.x."
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "description": "Optional ordered category list for the plugin UI. Items must use one of these ids when present.",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/id"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/item"
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "category",
+        "status",
+        "version",
+        "pattern",
+        "uses"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human title shown in the plugin list (HU)."
+        },
+        "description": {
+          "type": "string",
+          "description": "One or two sentences: what it is and when to use it."
+        },
+        "category": {
+          "$ref": "#/definitions/id",
+          "description": "e.g. forms, navigation, feedback, content, layout, page."
+        },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Search keywords (HU + EN)."
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "stable",
+            "deprecated"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "semver of the pattern tree. Breaking = atoms/props replaced, non-breaking = spacing/copy."
+        },
+        "replacedBy": {
+          "$ref": "#/definitions/id",
+          "description": "Only for status=deprecated."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Path to the pattern tree (pattern.schema.json), relative to the registry, e.g. patterns/callout-with-action/pattern.json."
+        },
+        "preview": {
+          "type": "object",
+          "required": [
+            "src"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "src": {
+              "type": "string",
+              "description": "PNG/WebP preview for the plugin card."
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "uses": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "DS components the tree instantiates (figma-keys.json component names). Derived from the tree in CI and checked for equality; kept here so the plugin can search/filter without loading every tree."
+        },
+        "code": {
+          "type": "object",
+          "description": "Code counterpart of the same pattern (shadcn-style registry item), if one exists.",
+          "additionalProperties": false,
+          "properties": {
+            "registryItem": {
+              "type": "string",
+              "description": "Path/URL of the code registry item, e.g. dap-screen-kit registry id or a source file."
+            },
+            "framework": {
+              "enum": [
+                "stencil",
+                "react",
+                "html"
+              ]
+            },
+            "screenKit": {
+              "type": "string",
+              "description": "dap-screen-kit registry key, if this pattern maps to a ScreenRenderer block."
+            }
+          }
+        },
+        "figma": {
+          "type": "object",
+          "description": "Optional Figma-native source (library component) for the library-key insert mode. Not needed for tree-based insert.",
+          "additionalProperties": false,
+          "properties": {
+            "fileKey": {
+              "type": "string"
+            },
+            "componentKey": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "nodeId": {
+              "type": "string"
+            }
+          }
+        },
+        "modes": {
+          "type": "object",
+          "description": "Variable modes the preview/tree was authored in (informational; the tree's own `modes` is what the plugin applies).",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "treeHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{1,8}$",
+          "description": "FNV-1a hash of the pattern tree (stable key order, `$schema` ignored). Generated by `npm run validate -- --stamp`. The plugin writes the hash of the tree it inserted next to the frame, so it can tell that a frame came from an older tree."
+        }
+      },
+      "if": {
+        "properties": {
+          "status": {
+            "const": "deprecated"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "replacedBy"
+        ]
+      }
+    }
+  }
+}

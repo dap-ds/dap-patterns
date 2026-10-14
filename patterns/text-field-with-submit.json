@@ -1,0 +1,71 @@
+{
+  "$schema": "../schema/bundle.schema.json",
+  "pattern": {
+    "schema": 1,
+    "id": "text-field-with-submit",
+    "modes": {
+      "color-theme": "Indigo",
+      "typography-theme": "desktop"
+    },
+    "root": {
+      "type": "FRAME",
+      "name": "Text field with submit",
+      "layout": {
+        "direction": "VERTICAL",
+        "gap": "{spacing.400}",
+        "padding": "{spacing.600}"
+      },
+      "width": "{containers.small}",
+      "height": "HUG",
+      "fill": "{background.neutral.base}",
+      "stroke": "{border.neutral.base}",
+      "strokeWidth": "{border-width.base}",
+      "radius": "{radius.base}",
+      "children": [
+        {
+          "type": "TEXT",
+          "name": "Title",
+          "chars": "Adja meg az e-mail címét",
+          "textStyle": "{Heading.Heading 4}",
+          "color": "{text.neutral.strong}",
+          "width": "FILL"
+        },
+        {
+          "type": "TEXT",
+          "name": "Description",
+          "chars": "A visszaigazolást erre a címre küldjük.",
+          "textStyle": "{Body.Medium.Regular}",
+          "color": "{text.neutral.subtle}",
+          "width": "FILL"
+        },
+        {
+          "type": "INSTANCE",
+          "name": "Email field",
+          "component": "Text field",
+          "width": "FILL"
+        },
+        {
+          "type": "INSTANCE",
+          "name": "Submit",
+          "component": "Button (primary)"
+        }
+      ]
+    }
+  },
+  "item": {
+    "id": "text-field-with-submit",
+    "title": "Szövegmező küldés gombbal",
+    "description": "Cím, rövid leírás, egy szövegmező és az elsődleges művelet gomb egy kártyában.",
+    "category": "forms",
+    "tags": [
+      "űrlap",
+      "form",
+      "input",
+      "e-mail",
+      "submit"
+    ],
+    "status": "draft",
+    "version": "0.1.0",
+    "updatedAt": "2026-10-14"
+  }
+}
