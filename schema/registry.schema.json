@@ -81,6 +81,11 @@
       "items": {
         "$ref": "#/definitions/item"
       }
+    },
+    "repository": {
+      "type": "string",
+      "format": "uri",
+      "description": "GitHub repository the catalogue is built from; the plugin uses it for \"Propose on GitHub\" (new / edit file pages)."
     }
   },
   "definitions": {

@@ -28,5 +28,6 @@
       "label": "Oldalszekciók"
     }
   ],
-  "homepage": "https://dap-ds.github.io/dap-patterns/"
+  "homepage": "https://dap-ds.github.io/dap-patterns/",
+  "repository": "https://github.com/dap-ds/dap-patterns"
 }

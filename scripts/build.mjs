@@ -113,6 +113,7 @@ const registry = {
   schema: 1,
   name: config.name,
   ...(config.homepage ? { homepage: config.homepage } : {}),
+  ...(config.repository ? { repository: config.repository } : {}),
   generatedAt: new Date().toISOString().slice(0, 10),
   tokens: config.tokens,
   categories: config.categories,
