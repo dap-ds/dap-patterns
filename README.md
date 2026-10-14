@@ -68,3 +68,8 @@ npm run serve           # http://localhost:8787/registry.json, to try a change i
 
 Pattern trees, token names and values, and the publish keys of the (public) DÁP Design System 1.5 Figma library.
 Nothing in this repository is secret; do not add credentials or personal data.
+
+## License
+
+[MIT](LICENSE). The pattern trees, schemas and scripts in this repository can be reused freely; the Figma library
+and design tokens they reference are those of the public DÁP Design System.
