@@ -1,0 +1,416 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dap-ds.github.io/dap-patterns/schema/pattern.schema.json",
+  "title": "DAP pattern tree",
+  "description": "Serialized Figma pattern: auto-layout frames, text and DS-atom instances. No raw geometry, no hardcoded values. Every visual value is a token reference, every atom is an INSTANCE of a DS library component. The plugin rebuilds this tree in a Figma file (atoms stay linked instances, the frames are plain and freely editable).",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "root"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema": {
+      "const": 1,
+      "description": "Pattern tree format version."
+    },
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "modes": {
+      "type": "object",
+      "description": "Explicit variable modes on the root frame, collection name -> mode name. Omit to inherit the host file's modes.",
+      "propertyNames": {
+        "enum": [
+          "color-theme",
+          "color-semantic",
+          "color-components",
+          "typography-theme"
+        ]
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      },
+      "examples": [
+        {
+          "color-theme": "Indigo",
+          "typography-theme": "desktop"
+        }
+      ]
+    },
+    "root": {
+      "$ref": "#/definitions/frame"
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "token": {
+      "type": "string",
+      "pattern": "^\\{[^{}]+\\}$",
+      "description": "Token reference by token.json path, e.g. {background.neutral.base}, {spacing.400}, {Body.Medium.Regular}, {Elevation.200}. Resolved to a Figma variable/style by replacing '.' with '/'. CI checks the path exists in token.json and in figma-keys.json."
+    },
+    "spacing": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/token"
+        },
+        {
+          "const": 0
+        }
+      ],
+      "description": "Spacing token, or literal 0 (the only allowed raw number)."
+    },
+    "padding": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/spacing"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "top": {
+              "$ref": "#/definitions/spacing"
+            },
+            "right": {
+              "$ref": "#/definitions/spacing"
+            },
+            "bottom": {
+              "$ref": "#/definitions/spacing"
+            },
+            "left": {
+              "$ref": "#/definitions/spacing"
+            },
+            "x": {
+              "$ref": "#/definitions/spacing"
+            },
+            "y": {
+              "$ref": "#/definitions/spacing"
+            }
+          }
+        }
+      ]
+    },
+    "size": {
+      "oneOf": [
+        {
+          "enum": [
+            "FILL",
+            "HUG"
+          ]
+        },
+        {
+          "$ref": "#/definitions/token",
+          "description": "Size token, e.g. {containers.medium}, {icon.base}."
+        }
+      ],
+      "description": "FILL / HUG, or a size token. No literal px."
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "direction"
+      ],
+      "properties": {
+        "direction": {
+          "enum": [
+            "HORIZONTAL",
+            "VERTICAL"
+          ]
+        },
+        "gap": {
+          "$ref": "#/definitions/spacing"
+        },
+        "padding": {
+          "$ref": "#/definitions/padding"
+        },
+        "wrap": {
+          "type": "boolean",
+          "default": false
+        },
+        "primaryAlign": {
+          "enum": [
+            "MIN",
+            "CENTER",
+            "MAX",
+            "SPACE_BETWEEN"
+          ],
+          "default": "MIN"
+        },
+        "counterAlign": {
+          "enum": [
+            "MIN",
+            "CENTER",
+            "MAX",
+            "BASELINE"
+          ],
+          "default": "MIN"
+        }
+      }
+    },
+    "frame": {
+      "type": "object",
+      "required": [
+        "type",
+        "layout",
+        "children"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "FRAME"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layout": {
+          "$ref": "#/definitions/layout"
+        },
+        "width": {
+          "$ref": "#/definitions/size"
+        },
+        "height": {
+          "$ref": "#/definitions/size"
+        },
+        "minWidth": {
+          "$ref": "#/definitions/token"
+        },
+        "maxWidth": {
+          "$ref": "#/definitions/token"
+        },
+        "fill": {
+          "$ref": "#/definitions/token",
+          "description": "color-semantic token."
+        },
+        "stroke": {
+          "$ref": "#/definitions/token",
+          "description": "color-semantic token."
+        },
+        "strokeWidth": {
+          "$ref": "#/definitions/token",
+          "description": "{border-width.*} token."
+        },
+        "radius": {
+          "$ref": "#/definitions/token",
+          "description": "{radius.*} token."
+        },
+        "effect": {
+          "$ref": "#/definitions/token",
+          "description": "Elevation effect style, e.g. {Elevation.200}."
+        },
+        "clipContent": {
+          "type": "boolean",
+          "default": false
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/frame"
+              },
+              {
+                "$ref": "#/definitions/text"
+              },
+              {
+                "$ref": "#/definitions/instance"
+              }
+            ]
+          }
+        },
+        "visible": {
+          "$ref": "#/definitions/visible"
+        },
+        "repeat": {
+          "$ref": "#/definitions/repeat"
+        }
+      }
+    },
+    "text": {
+      "type": "object",
+      "required": [
+        "type",
+        "chars",
+        "textStyle"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "TEXT"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "chars": {
+          "type": "string",
+          "description": "Placeholder/sample copy. Real copy comes from the screen schema, not the pattern."
+        },
+        "textStyle": {
+          "$ref": "#/definitions/token",
+          "description": "Text style token, e.g. {Heading.Heading 4}, {Body.Medium.Regular}."
+        },
+        "color": {
+          "$ref": "#/definitions/token",
+          "description": "color-semantic token, typically {text.*}."
+        },
+        "align": {
+          "enum": [
+            "LEFT",
+            "CENTER",
+            "RIGHT"
+          ],
+          "default": "LEFT"
+        },
+        "width": {
+          "$ref": "#/definitions/size"
+        },
+        "visible": {
+          "$ref": "#/definitions/visible"
+        },
+        "repeat": {
+          "$ref": "#/definitions/repeat"
+        }
+      }
+    },
+    "instance": {
+      "type": "object",
+      "required": [
+        "type",
+        "component"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "INSTANCE"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Key into figma-keys.json components, e.g. \"Button (primary)\", \"Text field\". Must be a DS atom/molecule from the library; CI rejects anything else."
+        },
+        "variant": {
+          "type": "object",
+          "description": "Variant property values, e.g. { \"Size\": \"Large\", \"State\": \"Enabled\" }.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "type": "object",
+          "description": "Component property overrides: text, boolean, instance-swap. Structural overrides (fill, radius, stroke) are NOT allowed here by design.",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "boolean"
+            ]
+          }
+        },
+        "width": {
+          "$ref": "#/definitions/size"
+        },
+        "textOverrides": {
+          "type": "object",
+          "description": "Text content of nested text layers inside the instance (e.g. the helper text of a Label). Key = layer name (the text layer, or a container whose first text layer is used). Content only: no styling or structural overrides.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "visible": {
+          "$ref": "#/definitions/visible"
+        },
+        "repeat": {
+          "$ref": "#/definitions/repeat"
+        },
+        "swap": {
+          "$ref": "#/definitions/swapMap"
+        }
+      }
+    },
+    "visible": {
+      "type": "boolean",
+      "default": true,
+      "description": "false = the layer is hidden (it stays in the file so the designer can switch it on). Use it for optional parts such as an error message or an extra list item. It is not a way to hide parts INSIDE an atom: use the component's own boolean property."
+    },
+    "swapMap": {
+      "type": "object",
+      "description": "Instance-swap properties: component property name (without the #id suffix) -> name of the component to swap in. The name is looked up in figma-keys.json `icons`, then `components`.",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "repeatEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Per-copy values merged over the repeated template (children are never repeated per entry).",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "chars": {
+          "type": "string"
+        },
+        "visible": {
+          "$ref": "#/definitions/visible"
+        },
+        "variant": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "boolean"
+            ]
+          }
+        },
+        "textOverrides": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "swap": {
+          "$ref": "#/definitions/swapMap"
+        }
+      }
+    },
+    "repeat": {
+      "description": "Repeats this node. A number makes identical copies; an array makes one copy per entry with the entry merged over the template. Copies are named \"<name> 1..n\" unless an entry sets `name`. Not allowed on the root.",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/repeatEntry"
+          }
+        }
+      ]
+    }
+  }
+}

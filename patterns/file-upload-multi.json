@@ -1,0 +1,155 @@
+{
+  "$schema": "../schema/bundle.schema.json",
+  "pattern": {
+    "schema": 1,
+    "id": "file-upload-multi",
+    "modes": {
+      "color-theme": "Indigo",
+      "typography-theme": "desktop"
+    },
+    "root": {
+      "type": "FRAME",
+      "name": "File upload (multi)",
+      "layout": {
+        "direction": "VERTICAL",
+        "gap": "{spacing.400}"
+      },
+      "width": "{breakpoints.xsmall}",
+      "height": "HUG",
+      "children": [
+        {
+          "type": "FRAME",
+          "name": "Field container",
+          "layout": {
+            "direction": "VERTICAL",
+            "gap": "{spacing.400}"
+          },
+          "width": "FILL",
+          "height": "HUG",
+          "children": [
+            {
+              "type": "INSTANCE",
+              "name": "Label",
+              "component": "Label (small)",
+              "properties": {
+                "Text": "Dokumentumok",
+                "Helper text": true
+              },
+              "width": "FILL",
+              "textOverrides": {
+                "↳ Helper text": "Maximum 500 MB, JPG formátum."
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Button container",
+              "layout": {
+                "direction": "VERTICAL",
+                "gap": "{spacing.200}"
+              },
+              "width": "FILL",
+              "height": "HUG",
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "name": "Upload button",
+                  "component": "Button (outline)",
+                  "variant": {
+                    "Size": "Medium",
+                    "State": "Enabled",
+                    "Color": "Brand"
+                  },
+                  "properties": {
+                    "Label": "Feltöltés",
+                    "Icon Leading": true
+                  },
+                  "swap": {
+                    "↪️ Icon Lead": "icon-upload-2-line"
+                  }
+                },
+                {
+                  "type": "INSTANCE",
+                  "name": "Feedback message",
+                  "component": "Feedback message (small)",
+                  "variant": {
+                    "Color": "Negative",
+                    "Highlight": "Strong"
+                  },
+                  "properties": {
+                    "Text": "Tölts fel egy file-t."
+                  },
+                  "width": "FILL",
+                  "visible": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "FRAME",
+          "name": "File list",
+          "layout": {
+            "direction": "VERTICAL",
+            "gap": "{spacing.200}"
+          },
+          "width": "FILL",
+          "height": "HUG",
+          "children": [
+            {
+              "type": "INSTANCE",
+              "name": "File",
+              "component": "File",
+              "variant": {
+                "State": "Enabled"
+              },
+              "width": "FILL",
+              "repeat": [
+                {
+                  "properties": {
+                    "Filename": "Személyi igazolvány.jpg",
+                    "↪️ Filesize": "500 KB"
+                  }
+                },
+                {
+                  "properties": {
+                    "Filename": "Lakcímkártya.jpg",
+                    "↪️ Filesize": "320 KB"
+                  }
+                },
+                {
+                  "properties": {
+                    "Filename": "Jövedelemigazolás.pdf",
+                    "↪️ Filesize": "1,2 MB"
+                  }
+                },
+                {
+                  "properties": {
+                    "Filename": "Adókártya.pdf",
+                    "↪️ Filesize": "180 KB"
+                  },
+                  "visible": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "item": {
+    "id": "file-upload-multi",
+    "title": "Fájlfeltöltés több dokumentummal",
+    "description": "Címke segédszöveggel, feltöltés gomb ikonnal és a feltöltött fájlok listája. A hibaüzenet és a negyedik fájl rejtett, a designer bekapcsolhatja.",
+    "category": "forms",
+    "tags": [
+      "fájlfeltöltés",
+      "file upload",
+      "dokumentum",
+      "csatolmány",
+      "űrlap"
+    ],
+    "status": "draft",
+    "version": "0.2.0",
+    "updatedAt": "2026-10-14"
+  }
+}

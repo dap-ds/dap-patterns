@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "name": "DÁP patterns",
+  "tokens": {
+    "source": "data/tokens.json",
+    "figmaKeys": "data/figma-keys.json",
+    "dsVersion": "dap-ds 0.2.0 tokens / Figma DS 1.5"
+  },
+  "categories": [
+    {
+      "id": "forms",
+      "label": "Űrlapok"
+    },
+    {
+      "id": "feedback",
+      "label": "Visszajelzés"
+    },
+    {
+      "id": "navigation",
+      "label": "Navigáció"
+    },
+    {
+      "id": "content",
+      "label": "Tartalom"
+    },
+    {
+      "id": "page",
+      "label": "Oldalszekciók"
+    }
+  ],
+  "homepage": "https://dap-ds.github.io/dap-patterns/",
+  "repository": "https://github.com/dap-ds/dap-patterns"
+}

@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # check-bump compares with the base branch
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Validate patterns (schema, tokens, figma-keys, components, swaps)
+        run: npm run validate
+      - name: Figma keys file is intact (checksums, no drift vs tokens.json)
+        run: npm run keys:verify
+      - name: Version must be bumped when a pattern tree changed
+        if: github.event_name == 'pull_request'
+        run: npm run check-bump -- origin/${{ github.base_ref }}
+      - name: Build the site (dry run of the Pages deploy)
+        run: npm run build
