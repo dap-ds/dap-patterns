@@ -12,6 +12,7 @@ Reusable **patterns** for the DÁP design system (everything above atom level), 
 
 ```
 patterns/<id>.json        one file per pattern: { pattern: <tree>, item: <metadata> }   <- the source of truth
+previews/<id>.png         optional card preview shown in the plugin (2x PNG of the pattern built in Figma)
 registry.config.json      catalogue name, categories, paths of the two data files
 data/figma-keys.json      GENERATED publish keys of the public Figma DS library (variables, styles, components, icons)
 data/tokens.json          copy of the DS tokens (W3C syntax, Figma collection/mode sets)

@@ -1,6 +1,7 @@
 // Validates every patterns/<id>.json bundle and generates the static site (dist/) that GitHub Pages serves:
 //   dist/registry.json                      generated catalogue (the Figma plugin reads this)
 //   dist/patterns/<id>/pattern.json         the pattern tree of each bundle
+//   dist/previews/<id>.png                  card preview shown in the plugin (copied from previews/, optional per pattern)
 //   dist/data/{figma-keys,tokens}.json, dist/schema/*.json, dist/index.html
 // `--check` validates only (used by `npm run validate`).
 //
@@ -57,6 +58,9 @@ const slotKind = (key, parentKey) => {
 };
 
 const patternsDir = path.join(root, "patterns");
+const previewsDir = path.join(root, "previews");
+// PNG size from the IHDR chunk (width/height are big-endian uint32 at byte 16/20)
+const pngSize = (f) => { const b = fs.readFileSync(f); return { width: b.readUInt32BE(16), height: b.readUInt32BE(20) }; };
 const files = fs.readdirSync(patternsDir).filter((f) => f.endsWith(".json")).sort();
 const items = [];
 const trees = {};
@@ -104,7 +108,9 @@ for (const file of files) {
   visit(expandTree(tree).root, "root");
 
   const { pattern: _p, uses: _u, treeHash: _h, ...meta } = item; // generated fields are recomputed
-  items.push({ ...meta, pattern: `patterns/${id}/pattern.json`, uses: [...used].sort(), treeHash: hashTree(tree) });
+  const previewFile = path.join(previewsDir, `${id}.png`);
+  const preview = fs.existsSync(previewFile) ? { src: `previews/${id}.png`, ...pngSize(previewFile) } : meta.preview;
+  items.push({ ...meta, ...(preview ? { preview } : {}), pattern: `patterns/${id}/pattern.json`, uses: [...used].sort(), treeHash: hashTree(tree) });
   trees[id] = tree;
 }
 
@@ -134,6 +140,7 @@ if (!check) {
   fs.cpSync(path.resolve(root, config.tokens.figmaKeys), path.join(dist, config.tokens.figmaKeys));
   fs.cpSync(path.resolve(root, config.tokens.source), path.join(dist, config.tokens.source));
   fs.cpSync(path.join(root, "schema"), path.join(dist, "schema"), { recursive: true });
+  if (fs.existsSync(previewsDir)) fs.cpSync(previewsDir, path.join(dist, "previews"), { recursive: true });
   put(".nojekyll", "");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   put("index.html", `<!doctype html><meta charset="utf-8"><title>${esc(config.name)}</title><h1>${esc(config.name)}</h1><p>Machine-readable catalogue for the DÁP Figma plugin: <a href="registry.json">registry.json</a></p><ul>${items.map((i) => `<li><b>${esc(i.title)}</b> <code>${esc(i.id)}</code> v${esc(i.version)} (${esc(i.status)})</li>`).join("")}</ul>`);
