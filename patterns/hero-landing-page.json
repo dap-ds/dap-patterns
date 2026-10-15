@@ -1,0 +1,137 @@
+{
+  "$schema": "../schema/bundle.schema.json",
+  "pattern": {
+    "schema": 1,
+    "id": "hero-landing-page",
+    "modes": {
+      "color-theme": "Indigo",
+      "typography-theme": "desktop"
+    },
+    "root": {
+      "type": "FRAME",
+      "name": "Hero (landing page)",
+      "layout": {
+        "direction": "VERTICAL",
+        "gap": "{spacing.1200}",
+        "padding": "{spacing.1200}",
+        "counterAlign": "CENTER"
+      },
+      "width": "{breakpoints.large}",
+      "height": "HUG",
+      "fill": "{background.brand.base-inverted}",
+      "children": [
+        {
+          "type": "FRAME",
+          "name": "Content",
+          "layout": {
+            "direction": "VERTICAL",
+            "gap": "{spacing.1200}"
+          },
+          "width": "FILL",
+          "height": "HUG",
+          "maxWidth": "{containers.xlarge}",
+          "children": [
+            {
+              "type": "TEXT",
+              "name": "Page title",
+              "chars": "Page title",
+              "textStyle": "{Heading.Heading 1}",
+              "color": "{text.neutral.on-inverted}",
+              "width": "FILL"
+            },
+            {
+              "type": "FRAME",
+              "name": "Search",
+              "layout": {
+                "direction": "VERTICAL",
+                "gap": "{spacing.400}"
+              },
+              "width": "FILL",
+              "height": "HUG",
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "name": "Search field",
+                  "component": "Search field",
+                  "variant": {
+                    "Size": "xLarge",
+                    "State": "Enabled",
+                    "Subtle": "No",
+                    "Open": "No"
+                  },
+                  "properties": {
+                    "Label": false
+                  },
+                  "width": "FILL"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Suggestions",
+                  "layout": {
+                    "direction": "HORIZONTAL",
+                    "gap": "{spacing.200}",
+                    "wrap": true
+                  },
+                  "width": "FILL",
+                  "height": "HUG",
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "name": "Suggestion",
+                      "component": "Button (subtle)",
+                      "variant": {
+                        "Size": "Small",
+                        "Color": "Inverted",
+                        "State": "Enabled"
+                      },
+                      "properties": {
+                        "Label": "Csecsemőgondozási Díj (CSED)",
+                        "Icon Leading": false,
+                        "Icon Trailing": false
+                      },
+                      "repeat": [
+                        {
+                          "properties": {
+                            "Label": "Csecsemőgondozási Díj (CSED)"
+                          }
+                        },
+                        {
+                          "properties": {
+                            "Label": "Nyugdíj"
+                          }
+                        },
+                        {
+                          "properties": {
+                            "Label": "Álláskeresési járadék"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "item": {
+    "id": "hero-landing-page",
+    "status": "draft",
+    "version": "0.1.0",
+    "updatedAt": "2026-10-15",
+    "category": "page",
+    "title": "Hero – nyitóoldal kereséssel",
+    "description": "Inverted (márkaszínű) oldalfejléc a nyitóoldalhoz: cím, életesemény/ügy kereső és három javasolt keresés. Az illusztráció külön kerül rá.",
+    "tags": [
+      "hero",
+      "nyitóoldal",
+      "landing page",
+      "keresés",
+      "search",
+      "oldalfejléc",
+      "inverted"
+    ]
+  }
+}
