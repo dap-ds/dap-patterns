@@ -1,0 +1,171 @@
+{
+  "$schema": "../schema/bundle.schema.json",
+  "pattern": {
+    "schema": 1,
+    "id": "hero-life-event-mobile",
+    "modes": {
+      "color-theme": "Indigo",
+      "typography-theme": "mobile"
+    },
+    "root": {
+      "type": "FRAME",
+      "name": "Hero (life event, mobile)",
+      "layout": {
+        "direction": "VERTICAL",
+        "gap": "{spacing.600}",
+        "padding": "{spacing.600}",
+        "counterAlign": "CENTER"
+      },
+      "width": "{breakpoints.xsmall}",
+      "height": "HUG",
+      "fill": "{background.brand.base-inverted}",
+      "children": [
+        {
+          "type": "FRAME",
+          "name": "Content",
+          "layout": {
+            "direction": "VERTICAL",
+            "gap": "{spacing.600}"
+          },
+          "width": "FILL",
+          "height": "HUG",
+          "maxWidth": "{containers.xlarge}",
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Share and print",
+              "layout": {
+                "direction": "HORIZONTAL",
+                "gap": "{spacing.300}"
+              },
+              "width": "FILL",
+              "height": "HUG",
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "name": "Share",
+                  "component": "Button (subtle)",
+                  "variant": {
+                    "Size": "xSmall",
+                    "Color": "Inverted",
+                    "State": "Enabled"
+                  },
+                  "properties": {
+                    "Label": "Megosztás",
+                    "Icon Leading": false,
+                    "Icon Trailing": false
+                  }
+                },
+                {
+                  "type": "INSTANCE",
+                  "name": "Print",
+                  "component": "Button (subtle)",
+                  "variant": {
+                    "Size": "xSmall",
+                    "Color": "Inverted",
+                    "State": "Enabled"
+                  },
+                  "properties": {
+                    "Label": "Nyomtatás",
+                    "Icon Leading": false,
+                    "Icon Trailing": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "FRAME",
+              "name": "Text",
+              "layout": {
+                "direction": "VERTICAL",
+                "gap": "{spacing.200}"
+              },
+              "width": "FILL",
+              "height": "HUG",
+              "children": [
+                {
+                  "type": "TEXT",
+                  "name": "Page title",
+                  "chars": "Page title",
+                  "textStyle": "{Heading.Heading 1}",
+                  "color": "{text.neutral.on-inverted}",
+                  "width": "FILL"
+                },
+                {
+                  "type": "TEXT",
+                  "name": "Description",
+                  "chars": "Short description. Can be a couple sentences long.",
+                  "textStyle": "{Body.Large.Regular}",
+                  "color": "{text.neutral.on-inverted}",
+                  "width": "FILL"
+                }
+              ]
+            },
+            {
+              "type": "FRAME",
+              "name": "Actions",
+              "layout": {
+                "direction": "HORIZONTAL",
+                "gap": "{spacing.300}",
+                "wrap": true
+              },
+              "width": "FILL",
+              "height": "HUG",
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "name": "Link",
+                  "component": "Button (outline)",
+                  "variant": {
+                    "Size": "Small",
+                    "Color": "Inverted",
+                    "State": "Enabled"
+                  },
+                  "properties": {
+                    "Label": "Link 01",
+                    "Icon Leading": false,
+                    "Icon Trailing": false
+                  },
+                  "repeat": [
+                    {
+                      "properties": {
+                        "Label": "Link 01"
+                      }
+                    },
+                    {
+                      "properties": {
+                        "Label": "Link 02"
+                      }
+                    },
+                    {
+                      "properties": {
+                        "Label": "Link 03"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "item": {
+    "id": "hero-life-event-mobile",
+    "category": "page",
+    "status": "draft",
+    "version": "0.1.0",
+    "updatedAt": "2026-10-15",
+    "title": "Hero – életesemény, mobil (320–640)",
+    "description": "Inverted oldalfejléc életesemény oldalakhoz mobil (320–640) felbontáson: megosztás/nyomtatás, cím, leírás és három gyorslink. Az illusztráció és az ikonok még nem DS kulcsok, ezek külön kerülnek rá; ezért az alsó padding egységes.",
+    "tags": [
+      "hero",
+      "életesemény",
+      "life event",
+      "oldalfejléc",
+      "inverted",
+      "mobile"
+    ]
+  }
+}
