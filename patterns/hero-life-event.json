@@ -13,7 +13,8 @@
       "layout": {
         "direction": "VERTICAL",
         "gap": "{spacing.600}",
-        "padding": "{spacing.1200}"
+        "padding": "{spacing.1200}",
+        "counterAlign": "CENTER"
       },
       "width": "{breakpoints.large}",
       "height": "HUG",
@@ -28,6 +29,7 @@
           },
           "width": "FILL",
           "height": "HUG",
+          "maxWidth": "{containers.xlarge}",
           "children": [
             {
               "type": "FRAME",
@@ -36,7 +38,7 @@
                 "direction": "HORIZONTAL",
                 "gap": "{spacing.300}"
               },
-              "width": "HUG",
+              "width": "FILL",
               "height": "HUG",
               "children": [
                 {
@@ -152,7 +154,7 @@
   "item": {
     "id": "hero-life-event",
     "title": "Hero – életesemény",
-    "description": "Inverted (márkaszínű) oldalfejléc életesemény oldalakhoz: megosztás/nyomtatás, cím, rövid leírás és legfeljebb három gyorslink. Az illusztráció külön kerül rá.",
+    "description": "Inverted (márkaszínű) oldalfejléc életesemény oldalakhoz: megosztás/nyomtatás, cím, rövid leírás és legfeljebb három gyorslink. Az illusztráció és a megosztás/nyomtatás ikonok még nem DS kulcsok, ezek külön kerülnek rá.",
     "category": "page",
     "tags": [
       "hero",
