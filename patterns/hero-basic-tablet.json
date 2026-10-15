@@ -1,0 +1,132 @@
+{
+  "$schema": "../schema/bundle.schema.json",
+  "pattern": {
+    "schema": 1,
+    "id": "hero-basic-tablet",
+    "modes": {
+      "color-theme": "Indigo",
+      "typography-theme": "tablet"
+    },
+    "root": {
+      "type": "FRAME",
+      "name": "Hero (basic, tablet)",
+      "layout": {
+        "direction": "VERTICAL",
+        "gap": "{spacing.600}",
+        "padding": {
+          "top": "{spacing.1200}",
+          "right": "{spacing.1200}",
+          "bottom": "{spacing.2000}",
+          "left": "{spacing.1200}"
+        },
+        "counterAlign": "CENTER"
+      },
+      "width": "{breakpoints.small}",
+      "height": "HUG",
+      "fill": "{background.neutral.base}",
+      "children": [
+        {
+          "type": "FRAME",
+          "name": "Content",
+          "layout": {
+            "direction": "VERTICAL",
+            "gap": "{spacing.600}"
+          },
+          "width": "FILL",
+          "height": "HUG",
+          "maxWidth": "{containers.xlarge}",
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Share and print",
+              "layout": {
+                "direction": "HORIZONTAL",
+                "gap": "{spacing.300}"
+              },
+              "width": "FILL",
+              "height": "HUG",
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "name": "Share",
+                  "component": "Button (subtle)",
+                  "variant": {
+                    "Size": "xSmall",
+                    "Color": "Neutral",
+                    "State": "Enabled"
+                  },
+                  "properties": {
+                    "Label": "Megosztás",
+                    "Icon Leading": false,
+                    "Icon Trailing": false
+                  }
+                },
+                {
+                  "type": "INSTANCE",
+                  "name": "Print",
+                  "component": "Button (subtle)",
+                  "variant": {
+                    "Size": "xSmall",
+                    "Color": "Neutral",
+                    "State": "Enabled"
+                  },
+                  "properties": {
+                    "Label": "Nyomtatás",
+                    "Icon Leading": false,
+                    "Icon Trailing": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "FRAME",
+              "name": "Text",
+              "layout": {
+                "direction": "VERTICAL",
+                "gap": "{spacing.200}"
+              },
+              "width": "FILL",
+              "height": "HUG",
+              "children": [
+                {
+                  "type": "TEXT",
+                  "name": "Page title",
+                  "chars": "Page title",
+                  "textStyle": "{Heading.Heading 1}",
+                  "color": "{text.neutral.strong}",
+                  "width": "FILL"
+                },
+                {
+                  "type": "TEXT",
+                  "name": "Description",
+                  "chars": "Short description. Can be a couple sentences long.",
+                  "textStyle": "{Body.Large.Regular}",
+                  "color": "{text.neutral.base}",
+                  "width": "FILL"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "item": {
+    "id": "hero-basic-tablet",
+    "category": "page",
+    "status": "draft",
+    "version": "0.1.0",
+    "updatedAt": "2026-10-15",
+    "title": "Hero – alap, tablet (640–1024)",
+    "description": "Világos oldalfejléc tablet (640–1024) felbontáson: megosztás/nyomtatás, cím és rövid leírás, művelet nélkül.",
+    "tags": [
+      "hero",
+      "alap",
+      "basic",
+      "oldalfejléc",
+      "cím",
+      "title",
+      "tablet"
+    ]
+  }
+}
