@@ -103,7 +103,7 @@ Egy PR = egy pattern. Commit body-ba a nem triviális "miért" (pl. mely Figma v
 - `references/gotchas.md`: dynamic-page async, get_design_context kerülése, lokális fájl vs. URL fileKey,
   `#id` suffix, `↪️` prefix property nevek
 - `references/example-hero.md`: egy végigvitt példa: Hero section (node 18337:17884, ComponentSet:
-  Resolution × Type[Landing page, Life event, Basic, Basic with Actions] × Inverted) → pattern `hero-life-event`
+  Resolution × Type[Landing page, Life event, Basic, Basic with Actions] × Inverted) → pattern `hero-section-page` (a Figma `Type` tengely értéke még „Life event”)
   (Share/Print "Button (subtle)" xSmall Inverted, cím + leírás TEXT, 3× "Button (outline)" Small Inverted
   `repeat`, illusztráció kimarad)
 - `scripts/dump-node.js`: a fenti dump

@@ -2,21 +2,21 @@
   "$schema": "../schema/bundle.schema.json",
   "pattern": {
     "schema": 1,
-    "id": "hero-life-event",
+    "id": "hero-section-page-mobile",
     "modes": {
       "color-theme": "Indigo",
-      "typography-theme": "desktop"
+      "typography-theme": "mobile"
     },
     "root": {
       "type": "FRAME",
-      "name": "Hero (life event)",
+      "name": "Hero section (page, mobile)",
       "layout": {
         "direction": "VERTICAL",
         "gap": "{spacing.600}",
-        "padding": "{spacing.1200}",
+        "padding": "{spacing.600}",
         "counterAlign": "CENTER"
       },
-      "width": "{breakpoints.large}",
+      "width": "{breakpoints.xsmall}",
       "height": "HUG",
       "fill": "{background.brand.base-inverted}",
       "children": [
@@ -47,8 +47,8 @@
                   "component": "Button (subtle)",
                   "variant": {
                     "Size": "xSmall",
-                    "State": "Enabled",
-                    "Color": "Inverted"
+                    "Color": "Inverted",
+                    "State": "Enabled"
                   },
                   "properties": {
                     "Label": "Megosztás",
@@ -62,8 +62,8 @@
                   "component": "Button (subtle)",
                   "variant": {
                     "Size": "xSmall",
-                    "State": "Enabled",
-                    "Color": "Inverted"
+                    "Color": "Inverted",
+                    "State": "Enabled"
                   },
                   "properties": {
                     "Label": "Nyomtatás",
@@ -118,8 +118,8 @@
                   "component": "Button (outline)",
                   "variant": {
                     "Size": "Small",
-                    "State": "Enabled",
-                    "Color": "Inverted"
+                    "Color": "Inverted",
+                    "State": "Enabled"
                   },
                   "properties": {
                     "Label": "Link 01",
@@ -152,20 +152,19 @@
     }
   },
   "item": {
-    "id": "hero-life-event",
-    "title": "Hero – életesemény",
-    "description": "Inverted (márkaszínű) oldalfejléc életesemény oldalakhoz: megosztás/nyomtatás, cím, rövid leírás és legfeljebb három gyorslink. Az illusztráció és a megosztás/nyomtatás ikonok még nem DS kulcsok, ezek külön kerülnek rá.",
+    "id": "hero-section-page-mobile",
     "category": "page",
-    "tags": [
-      "hero",
-      "életesemény",
-      "life event",
-      "oldalfejléc",
-      "header",
-      "inverted"
-    ],
     "status": "draft",
     "version": "0.1.0",
-    "updatedAt": "2026-10-14"
+    "updatedAt": "2026-10-15",
+    "title": "Hero section – oldal, mobil (320–640)",
+    "description": "Inverted oldalfejléc tartalmi oldalakhoz mobil (320–640) felbontáson: megosztás/nyomtatás, cím, leírás és három gyorslink. Az illusztráció és az ikonok még nem DS kulcsok, ezek külön kerülnek rá; ezért az alsó padding egységes.",
+    "tags": [
+      "hero",
+      "page",
+      "oldalfejléc",
+      "inverted",
+      "mobile"
+    ]
   }
 }
