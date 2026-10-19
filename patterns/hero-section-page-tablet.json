@@ -2,14 +2,14 @@
   "$schema": "../schema/bundle.schema.json",
   "pattern": {
     "schema": 1,
-    "id": "hero-life-event-tablet",
+    "id": "hero-section-page-tablet",
     "modes": {
       "color-theme": "Indigo",
       "typography-theme": "tablet"
     },
     "root": {
       "type": "FRAME",
-      "name": "Hero (life event, tablet)",
+      "name": "Hero section (page, tablet)",
       "layout": {
         "direction": "VERTICAL",
         "gap": "{spacing.600}",
@@ -152,17 +152,16 @@
     }
   },
   "item": {
-    "id": "hero-life-event-tablet",
+    "id": "hero-section-page-tablet",
     "category": "page",
     "status": "draft",
     "version": "0.1.0",
     "updatedAt": "2026-10-15",
-    "title": "Hero – életesemény, tablet (640–1024)",
-    "description": "Inverted oldalfejléc életesemény oldalakhoz tablet (640–1024) felbontáson: megosztás/nyomtatás, cím, leírás és három gyorslink. Az illusztráció és az ikonok még nem DS kulcsok, ezek külön kerülnek rá; ezért az alsó padding egységes.",
+    "title": "Hero section – oldal, tablet (640–1024)",
+    "description": "Inverted oldalfejléc tartalmi oldalakhoz tablet (640–1024) felbontáson: megosztás/nyomtatás, cím, leírás és három gyorslink. Az illusztráció és az ikonok még nem DS kulcsok, ezek külön kerülnek rá; ezért az alsó padding egységes.",
     "tags": [
       "hero",
-      "életesemény",
-      "life event",
+      "page",
       "oldalfejléc",
       "inverted",
       "tablet"
